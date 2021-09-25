@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package my_grpc;
+
+option go_package = "processor_message/";
+
+message CPU {
+    string brand = 1;
+    string name = 2;
+    uint32 number_core = 3;
+    uint32 number_threads = 4;
+    double min_ghz = 5;
+    double max_ghz = 6;
+}
