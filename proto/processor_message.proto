@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package my_grpc;
+option go_package = "pb/";
 
-option go_package = "processor_message/";
+import "memory_message.proto";
 
 message CPU {
     string brand = 1;
@@ -12,3 +12,12 @@ message CPU {
     double min_ghz = 5;
     double max_ghz = 6;
 }
+
+message GPU {
+    string brand = 1;
+    string name = 2;
+    double min_ghz = 3;
+    double max_ghz = 4;
+    Memory memory = 5;
+}
+
