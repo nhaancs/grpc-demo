@@ -1,0 +1,62 @@
+{
+  "id":  "31e44700-7260-4d64-8718-104c6c7264ab",
+  "brand":  "Dell",
+  "name":  "Vostro",
+  "cpu":  {
+    "brand":  "Intel",
+    "name":  "Xeon E-2286M",
+    "number_cores":  2,
+    "number_threads":  3,
+    "min_ghz":  2.8651866485547437,
+    "max_ghz":  3.1331569432218322
+  },
+  "ram":  {
+    "value":  "60",
+    "unit":  "GIGABYTE"
+  },
+  "gpus":  [
+    {
+      "brand":  "NVIDIA",
+      "name":  "GTX 1070",
+      "min_ghz":  1.013287456153877,
+      "max_ghz":  1.1564535934567242,
+      "memory":  {
+        "value":  "2",
+        "unit":  "GIGABYTE"
+      }
+    }
+  ],
+  "storages":  [
+    {
+      "driver":  "SSD",
+      "memory":  {
+        "value":  "645",
+        "unit":  "GIGABYTE"
+      }
+    },
+    {
+      "driver":  "HDD",
+      "memory":  {
+        "value":  "6",
+        "unit":  "TERABYTE"
+      }
+    }
+  ],
+  "screen":  {
+    "size_inch":  16,
+    "resolution":  {
+      "width":  2778,
+      "height":  1563
+    },
+    "panel":  "IPS",
+    "multitouch":  false
+  },
+  "keyboard":  {
+    "layout":  "AZERTY",
+    "backlit":  false
+  },
+  "weight_kg":  2.436676285332012,
+  "price_usd":  1640.7614038833126,
+  "release_year":  2015,
+  "updated_at":  "2021-09-25T17:12:50.488925200Z"
+}
