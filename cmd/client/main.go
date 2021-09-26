@@ -45,8 +45,8 @@ func testSearchLaptop(laptopClient pb.LaptopServiceClient) {
 	filter := &pb.Filter{
 		MaxPriceUsd: 3000,
 		MinCpuCores: 4,
-		MinCpuGhz: 2.5,
-		MinRam: &pb.Memory{Value: 8, Unit: pb.Memory_GIGABYTE},
+		MinCpuGhz:   2.5,
+		MinRam:      &pb.Memory{Value: 8, Unit: pb.Memory_GIGABYTE},
 	}
 	searchLaptop(laptopClient, filter)
 }
@@ -62,7 +62,7 @@ func uploadImage(laptopClient pb.LaptopServiceClient, laptopID, imagePath string
 	}
 	defer file.Close()
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	stream, err := laptopClient.UploadImage(ctx)
@@ -73,7 +73,7 @@ func uploadImage(laptopClient pb.LaptopServiceClient, laptopID, imagePath string
 	req := &pb.UploadImageRequest{
 		Data: &pb.UploadImageRequest_Info{
 			Info: &pb.ImageInfo{
-				LaptopId: laptopID,
+				LaptopId:  laptopID,
 				ImageType: filepath.Ext(imagePath),
 			},
 		},
@@ -98,7 +98,7 @@ func uploadImage(laptopClient pb.LaptopServiceClient, laptopID, imagePath string
 			Data: &pb.UploadImageRequest_ChunkData{
 				ChunkData: buffer[:n],
 			},
-		} 
+		}
 		err = stream.Send(req)
 		if err != nil {
 			log.Fatal("cannot send chunk to server: ", err, stream.RecvMsg(nil))
@@ -116,7 +116,7 @@ func uploadImage(laptopClient pb.LaptopServiceClient, laptopID, imagePath string
 func searchLaptop(laptopClient pb.LaptopServiceClient, filter *pb.Filter) {
 	log.Print("search filter: ", filter)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	req := &pb.SearchLaptopRequest{Filter: filter}
@@ -153,7 +153,7 @@ func createLaptop(laptopClient pb.LaptopServiceClient, laptop *pb.Laptop) {
 	}
 
 	// set timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second) 
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	res, err := laptopClient.CreateLaptop(ctx, req)
@@ -166,7 +166,7 @@ func createLaptop(laptopClient pb.LaptopServiceClient, laptop *pb.Laptop) {
 			log.Fatal("cannot create latop: ", err)
 		}
 
-		return 
+		return
 	}
 
 	log.Printf("created laptop with id: %s", res.Id)

@@ -19,7 +19,7 @@ const maxImageSize = 1 << 20
 type LaptopServer struct {
 	pb.UnimplementedLaptopServiceServer
 	laptopStore LaptopStore
-	imageStore ImageStore
+	imageStore  ImageStore
 }
 
 func NewLaptopServer(laptopStore LaptopStore, imageStore ImageStore) *LaptopServer {
@@ -155,7 +155,7 @@ func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServe
 	}
 
 	res := &pb.UploadImageResponse{
-		Id: imageID,
+		Id:   imageID,
 		Size: uint32(imageSize),
 	}
 
@@ -170,7 +170,7 @@ func (server *LaptopServer) UploadImage(stream pb.LaptopService_UploadImageServe
 }
 
 func (server *LaptopServer) RateLaptop(stream LaptopService_RateLaptopServer) error {
-	return nil 
+	return nil
 }
 
 func logError(err error) error {
@@ -187,7 +187,7 @@ func contextError(ctx context.Context) error {
 		return status.Error(codes.Canceled, "request is cancelled")
 	case context.DeadlineExceeded:
 		return status.Error(codes.DeadlineExceeded, "deadline is exceeded")
-	default: 
+	default:
 		return nil
 	}
 }

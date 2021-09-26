@@ -7,10 +7,10 @@ import (
 
 func ProtobufToJSON(message proto.Message) ([]byte, error) {
 	marshaler := protojson.MarshalOptions{
-		UseEnumNumbers: false,
+		UseEnumNumbers:  false,
 		EmitUnpopulated: true,
-		Indent: "  ",
-		UseProtoNames: true,
+		Indent:          "  ",
+		UseProtoNames:   true,
 	}
 
 	return marshaler.Marshal(message)

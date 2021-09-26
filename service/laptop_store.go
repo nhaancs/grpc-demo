@@ -21,7 +21,7 @@ type LaptopStore interface {
 
 type InMemoryLaptopStore struct {
 	mutex sync.RWMutex
-	data map[string]*pb.Laptop
+	data  map[string]*pb.Laptop
 }
 
 func NewInMemoryLaptopStore() *InMemoryLaptopStore {

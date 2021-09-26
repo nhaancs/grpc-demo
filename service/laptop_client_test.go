@@ -51,10 +51,10 @@ func TestClientSearchLaptop(t *testing.T) {
 	filter := &pb.Filter{
 		MaxPriceUsd: 2000,
 		MinCpuCores: 4,
-		MinCpuGhz: 2.2,
-		MinRam: &pb.Memory{Value: 8, Unit: pb.Memory_GIGABYTE},
+		MinCpuGhz:   2.2,
+		MinRam:      &pb.Memory{Value: 8, Unit: pb.Memory_GIGABYTE},
 	}
-	
+
 	laptopStore := service.NewInMemoryLaptopStore()
 	expectedIDs := make(map[string]bool)
 	for i := 0; i < 6; i++ {
@@ -101,10 +101,10 @@ func TestClientSearchLaptop(t *testing.T) {
 		res, err := stream.Recv()
 		if err == io.EOF {
 			break
-		}	
+		}
 		require.NoError(t, err)
 		require.Contains(t, expectedIDs, res.GetLaptop().GetId())
-		found +=1
+		found += 1
 	}
 	require.Equal(t, len(expectedIDs), found)
 }
@@ -128,14 +128,14 @@ func TestClientUploadImage(t *testing.T) {
 	require.NoError(t, err)
 	defer file.Close()
 
-	stream, err :=  laptopClient.UploadImage(context.Background())
+	stream, err := laptopClient.UploadImage(context.Background())
 	require.NoError(t, err)
 
 	imageType := filepath.Ext(imagePath)
 	req := &pb.UploadImageRequest{
 		Data: &pb.UploadImageRequest_Info{
 			Info: &pb.ImageInfo{
-				LaptopId: laptop.GetId(),
+				LaptopId:  laptop.GetId(),
 				ImageType: imageType,
 			},
 		},
@@ -159,7 +159,7 @@ func TestClientUploadImage(t *testing.T) {
 			Data: &pb.UploadImageRequest_ChunkData{
 				ChunkData: buffer[:n],
 			},
-		} 
+		}
 		err = stream.Send(req)
 		require.NoError(t, err)
 	}
@@ -180,7 +180,7 @@ func startTestLaptopServer(t *testing.T, laptopStore service.LaptopStore, imageS
 	grpcServer := grpc.NewServer()
 	pb.RegisterLaptopServiceServer(grpcServer, laptopServer)
 
-	listener, err := net.Listen("tcp", ":0") // random available port 
+	listener, err := net.Listen("tcp", ":0") // random available port
 	require.NoError(t, err)
 
 	go grpcServer.Serve(listener) // non-blocking call

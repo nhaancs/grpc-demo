@@ -17,7 +17,7 @@ func TestFileSerializer(t *testing.T) {
 
 	laptop1 := sample.NewLaptop()
 	err := serializer.WriteProtobufToBinaryFile(laptop1, binaryFile)
-	require.NoError(t, err) 
+	require.NoError(t, err)
 
 	laptop2 := &pb.Laptop{}
 	err = serializer.ReadProtobufFromBinaryFile(binaryFile, laptop2)

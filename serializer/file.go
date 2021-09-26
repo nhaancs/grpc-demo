@@ -48,4 +48,3 @@ func WriteProtobufToJSONFile(message proto.Message, filename string) error {
 
 	return nil
 }
-

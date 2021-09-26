@@ -50,15 +50,15 @@ func randomCPUName(brand string) string {
 }
 
 func randomInt(min, max int) int {
-	return min + rand.Intn(max - min + 1)
+	return min + rand.Intn(max-min+1)
 }
 
 func randomFloat64(min, max float64) float64 {
-	return min + rand.Float64()*(max - min)
+	return min + rand.Float64()*(max-min)
 }
 
 func randomFloat32(min, max float32) float32 {
-	return min + rand.Float32()*(max - min)
+	return min + rand.Float32()*(max-min)
 }
 
 func randomGPUBrand() string {
@@ -95,9 +95,9 @@ func randomScreenResolution() *pb.Screen_Resolution {
 	height := randomInt(1000, 4320)
 	width := height * 16 / 9
 
-	resolution :=  &pb.Screen_Resolution{
+	resolution := &pb.Screen_Resolution{
 		Height: uint32(height),
-		Width: uint32(width),
+		Width:  uint32(width),
 	}
 
 	return resolution

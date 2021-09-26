@@ -1,8 +1,8 @@
 package sample
 
 import (
-	"grpc-demo/pb"
 	"github.com/golang/protobuf/ptypes"
+	"grpc-demo/pb"
 )
 
 func NewKeyboard() *pb.Keyboard {
@@ -94,9 +94,9 @@ func NewHDD() *pb.Storage {
 
 func NewScreen() *pb.Screen {
 	screen := &pb.Screen{
-		SizeInch: float32(randomInt(13, 17)),
+		SizeInch:   float32(randomInt(13, 17)),
 		Resolution: randomScreenResolution(),
-		Panel: randomScreenPanel(),
+		Panel:      randomScreenPanel(),
 		Multitouch: randomBool(),
 	}
 
@@ -108,21 +108,21 @@ func NewLaptop() *pb.Laptop {
 	name := randomLaptopName(brand)
 
 	laptop := &pb.Laptop{
-		Id: randomID(),
-		Brand: brand,
-		Name: name,
-		Cpu: NewCPU(),
-		Ram: NewRAM(),
-		Gpus: []*pb.GPU{NewGPU()},
+		Id:       randomID(),
+		Brand:    brand,
+		Name:     name,
+		Cpu:      NewCPU(),
+		Ram:      NewRAM(),
+		Gpus:     []*pb.GPU{NewGPU()},
 		Storages: []*pb.Storage{NewSSD(), NewHDD()},
-		Screen: NewScreen(),
+		Screen:   NewScreen(),
 		Keyboard: NewKeyboard(),
 		Weight: &pb.Laptop_WeightKg{
 			WeightKg: randomFloat64(1.0, 3.0),
 		},
-		PriceUsd: randomFloat64(1500, 3000),
+		PriceUsd:    randomFloat64(1500, 3000),
 		ReleaseYear: uint32(randomInt(2015, 2019)),
-		UpdatedAt: ptypes.TimestampNow(),
+		UpdatedAt:   ptypes.TimestampNow(),
 	}
 
 	return laptop
