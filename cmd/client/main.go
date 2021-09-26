@@ -5,6 +5,7 @@ import (
 	"flag"
 	"grpc-demo/pb"
 	"grpc-demo/sample"
+	"io"
 	"log"
 	"time"
 
@@ -24,7 +25,54 @@ func main() {
 	}
 
 	laptopClient := pb.NewLaptopServiceClient(conn)
+	for i := 0; i < 10; i++ {
+		createLaptop(laptopClient)
+	}
 
+	filter := &pb.Filter{
+		MaxPriceUsd: 3000,
+		MinCpuCores: 4,
+		MinCpuGhz: 2.5,
+		MinRam: &pb.Memory{Value: 8, Unit: pb.Memory_GIGABYTE},
+	}
+	searchLaptop(laptopClient, filter)
+}
+
+
+func searchLaptop(laptopClient pb.LaptopServiceClient, filter *pb.Filter) {
+	log.Print("search filter: ", filter)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5 * time.Second)
+	defer cancel()
+
+	req := &pb.SearchLaptopRequest{Filter: filter}
+	stream, err := laptopClient.SearchLaptop(ctx, req)
+	if err != nil {
+		log.Fatal("cannot search laptop: ", err)
+	}
+
+	for {
+		res, err := stream.Recv()
+		if err != nil {
+			if err == io.EOF {
+				return
+			}
+
+			log.Fatal("cannot receive response: ", err)
+		}
+
+		laptop := res.GetLaptop()
+		log.Print("- found: ", laptop.GetId())
+		log.Print("  + brand: ", laptop.GetBrand())
+		log.Print("  + name: ", laptop.GetName())
+		log.Print("  + cpu cores: ", laptop.GetCpu().GetNumberCores())
+		log.Print("  + cpu min ghz: ", laptop.GetCpu().GetMinGhz())
+		log.Print("  + ram: ", laptop.GetRam().GetValue(), laptop.GetRam().GetUnit())
+		log.Print("  + price: ", laptop.GetPriceUsd(), "usd")
+	}
+}
+
+func createLaptop(laptopClient pb.LaptopServiceClient) {
 	laptop := sample.NewLaptop()
 	// laptop.Id = "zzz 4e17b688-fb07-4364-8d0c-10f312f9f498"
 	req := &pb.CreateLaptopRequest{
