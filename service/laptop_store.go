@@ -5,13 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"grpc-demo/pb"
-	"log"
 	"sync"
 
 	"github.com/jinzhu/copier"
 )
 
-var ErrAlreadyExists = errors.New("laptop already exists")
+var ErrAlreadyExists = errors.New("already exists")
 
 type LaptopStore interface {
 	Save(laptop *pb.Laptop) error
@@ -68,8 +67,8 @@ func (store *InMemoryLaptopStore) Search(ctx context.Context, filter *pb.Filter,
 		// some heavy processing
 		// time.Sleep(6 * time.Second)
 
-		if ctx.Err() == context.Canceled || ctx.Err() == context.DeadlineExceeded {
-			log.Print("context is cancelled")
+		if err := contextError(ctx); err != nil {
+			return err
 		}
 
 		if isQualified(filter, laptop) {

@@ -205,9 +205,9 @@ func (server *LaptopServer) RateLaptop(stream pb.LaptopService_RateLaptopServer)
 		}
 
 		res := &pb.RateLaptopResponse{
-			LaptopId: laptopID,
-			RatedCount: rating.Count,
-			AverageScore: rating.Sum/float64(rating.Count),
+			LaptopId:     laptopID,
+			RatedCount:   rating.Count,
+			AverageScore: rating.Sum / float64(rating.Count),
 		}
 		err = stream.Send(res)
 		if err != nil {

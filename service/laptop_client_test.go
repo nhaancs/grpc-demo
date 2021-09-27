@@ -196,7 +196,7 @@ func TestClientRateLaptop(t *testing.T) {
 	for i := 0; i < n; i++ {
 		req := &pb.RateLaptopRequest{
 			LaptopId: laptop.GetId(),
-			Score: scores[i],
+			Score:    scores[i],
 		}
 		err := stream.Send(req)
 		require.NoError(t, err)
@@ -214,7 +214,7 @@ func TestClientRateLaptop(t *testing.T) {
 
 		require.NoError(t, err)
 		require.Equal(t, laptop.GetId(), res.GetLaptopId())
-		require.Equal(t, uint32(idx + 1), res.GetRatedCount())
+		require.Equal(t, uint32(idx+1), res.GetRatedCount())
 		require.Equal(t, averages[idx], res.GetAverageScore())
 	}
 }

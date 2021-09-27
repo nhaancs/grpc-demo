@@ -3,16 +3,18 @@ module grpc-demo
 go 1.17
 
 require (
-	github.com/golang/protobuf v1.5.0
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/jinzhu/copier v0.3.2
 	github.com/stretchr/testify v1.7.0
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	google.golang.org/grpc v1.41.0
 	google.golang.org/protobuf v1.27.1
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.0 // indirect
+	github.com/golang/protobuf v1.5.0 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
